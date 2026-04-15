@@ -1,0 +1,55 @@
+import { useState } from "react";
+
+const ExpenseForm = (props) => {
+    const [title, setTitle] = useState('');
+    const [amount, setAmount] = useState('');
+    const [date, setDate] = useState('');
+
+    const titleChangeHandler = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const amountChangeHandler = (e) => {
+        setAmount(e.target.value);
+    }
+
+    const dateChangeHandler = (e) => {
+        setDate(e.target.value);
+    }
+
+    const formSubmitHandler = (e) => {
+        e.preventDefault();
+        const expenseData = {
+            title: title,
+            amount: amount,
+            date: new Date(date)
+        };
+        props.onSaveExpenseData(expenseData);
+        setTitle('');
+        setAmount('');
+        setDate('');
+    };
+    return (
+        <form action="" onSubmit={formSubmitHandler}>
+             <div>
+                <div>
+                    <label htmlFor="">Title: </label>
+                    <input type="text" value={title} onChange={titleChangeHandler} />
+                </div>
+                <div>
+                    <label htmlFor="">Amount: </label>
+                    <input type="number" value={amount} onChange={amountChangeHandler} />
+                </div>
+                <div>
+                    <label htmlFor="">Date: </label>
+                    <input type="date" value={date} onChange={dateChangeHandler} />
+                </div>
+             </div>
+             <div>
+                <button type="submit">Add Expense</button>
+             </div>
+        </form>
+    );
+}
+
+export default ExpenseForm;
